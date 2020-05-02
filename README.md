@@ -9,6 +9,8 @@ REST API для проекта на Django, позволяет получать,
 ` pip install -r requirements.txt `
 
 ## Примеры
+Примеры обращения к API:
+
 * `/redoc/` - Документация
 * `/token/` - Получить токен
 * `/token/refresh/` - Обновить токен
