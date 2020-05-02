@@ -1,10 +1,12 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import viewsets
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
 from .serializers import PostSerializer, CommentSerializer, FollowSerializer, GroupSerializer
 from .models import Post, Comment, Follow, Group
 from .permissions import IsAuthorOrReadOnly
-from django.shortcuts import get_object_or_404
-from rest_framework import filters
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -15,7 +17,6 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_fields = ['group', ]
 
     def perform_create(self, serializer):
-        # переопределяем  save() при создании и создаем пост
         serializer.save(author=self.request.user)
 
 
@@ -37,9 +38,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     permission_classes = [IsAuthorOrReadOnly]
     filter_backends = [filters.SearchFilter]
-    # поиск по точным совпадениям
     search_fields = ['=user__username', '=following__username', ]
-
 
     def perform_create(self, serializer):
         if serializer.is_valid():
