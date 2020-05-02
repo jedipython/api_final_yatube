@@ -6,7 +6,7 @@ REST API для проекта на Django, позволяет получать,
 
 ## Установка
 
-> pip install -r requirements.txt
+` pip install -r requirements.txt `
 
 
 
